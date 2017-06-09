@@ -1,0 +1,52 @@
+{
+  "variables": {
+
+    "aws_access_key": "{{ env `AWS_ACCESS_KEY_ID` }}",
+    "aws_secret_key": "{{ env `AWS_SECRET_ACCESS_KEY` }}",
+
+    "aws_region": "eu-west-1",
+    "aws_instance_type": "t2.micro",
+    "name": "base_ami",
+    "base_image": "ami-70edb016",
+    "ssh_username": "ec2-user"
+  },
+
+  "builders": [
+    {
+      "access_key": "{{ user `aws_access_key` }}",
+      "secret_key": "{{ user `aws_secret_key` }}",
+      "name": "{{ user `name` }}",
+      "type": "amazon-ebs",
+      "instance_type": "{{ user `aws_instance_type` }}",
+      "source_ami": "{{user `base_image`}}",
+      "region": "{{ user `aws_region` }}",
+      "ssh_username": "{{user `ssh_username`}}",
+      "ssh_pty": true,
+      "ssh_timeout": "10m",
+      "ami_name": "{{ build_name }}_{{ isotime \"2006-01-02T03-04-05\" }}",
+      "tags": { "Name": "{{ build_name }}_{{ isotime \"2006-01-02T03-04-05\" }}" },
+      "ssh_private_ip": false,
+      "associate_public_ip_address": true
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": ["mkdir /tmp/packer"]
+    },
+    {
+      "type": "file",
+      "source": "resources",
+      "destination": "/tmp/packer"
+    },
+    {
+      "type": "shell",
+      "script": "setup.sh"
+    },
+    {
+      "type": "shell",
+      "inline": ["rm -rf /tmp/packer"]
+    }
+  ]
+}
+

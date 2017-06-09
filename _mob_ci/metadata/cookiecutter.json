@@ -1,0 +1,17 @@
+{
+  "full_name": "Giuseppe Chiesa",
+  "email": "gchiesa@mobiquityinc.com",
+  "github_username": "gchiesa",
+  "project_name": "base_ami",
+  "project_slug": "base_ami",
+  "project_short_description": "Base AMI Packer Image",
+  "release_date": "2017-06-09",
+  "version": "0.1.0",
+  "base_image": "ami-70edb016",
+  "image_name": "base_ami",
+  "packer_url": "https://releases.hashicorp.com/packer/0.12.3/packer_0.12.3_linux_amd64.zip",
+  "jenkins_aws_credentials_id": "awspacker",
+  "jenkins_git_credentials_id": "awsjenkins_git",
+  "jenkins_git_repository_clone_url": "ssh://git@github.com:gchiesa/base_ami.git",
+  "_extensions": [ "jinja2_time.TimeExtension" ]
+}
